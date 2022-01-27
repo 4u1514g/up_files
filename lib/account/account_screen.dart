@@ -37,13 +37,45 @@ class _AccountScreenState extends State<AccountScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                      child: SvgPicture.asset(
-                    'assets/user_icon-icons.com_66546.svg',
-                    height: Ruler.height(context, 16),
-                    width: Ruler.height(context, 16),
-                  )),
+                      height: Ruler.height(context, 16) + 50,
+                      width: Ruler.width(context, 70),
+                      child: Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          Positioned(
+                              top: Ruler.height(context, 8),
+                              bottom: 0,
+                              width: Ruler.width(context, 70),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Ruler.purpleColor,
+                                    borderRadius: BorderRadius.circular(15)),
+                              )),
+                          Positioned(
+                              top: Ruler.height(context, 8)+35,
+                              bottom: 0,
+                              width: Ruler.width(context, 70),
+                              child: Center(
+                                child: Ruler.setText(
+                                    UserModel.savedAccount!.name!,
+                                    size: Ruler.setSize + 4,
+                                    color: Colors.white,
+                                    weight: FontWeight.w500),
+                              )),
+                          Positioned(
+                            top: 0,
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/user_icon-icons.com_66546.svg',
+                                height: Ruler.height(context, 16),
+                                width: Ruler.height(context, 16),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
                   SizedBox(
-                    height: Ruler.height(context, 40),
+                    height: Ruler.height(context, 35),
                   ),
                   GestureDetector(
                     behavior: HitTestBehavior.opaque,
@@ -69,7 +101,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                             BorderRadius.circular(15)),
                                     child: Column(
                                       children: [
-                                        const  SizedBox(
+                                        const SizedBox(
                                           height: 15,
                                         ),
                                         Container(
@@ -101,7 +133,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                                     isCollapsed: true,
                                                     isDense: true,
                                                     contentPadding:
-                                                    const EdgeInsets.symmetric(
+                                                        const EdgeInsets
+                                                                .symmetric(
                                                             horizontal: 15),
                                                     border: InputBorder.none,
                                                     focusedBorder:
@@ -136,8 +169,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                                 height: 15,
                                               )
                                             : Container(
-                                                margin:const  EdgeInsets.symmetric(
-                                                    vertical: 10),
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10),
                                                 child: Ruler.setText(zxc,
                                                     size: Ruler.setSize,
                                                     color: Ruler.redColor)),
@@ -171,7 +205,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                                     isCollapsed: true,
                                                     isDense: true,
                                                     contentPadding:
-                                                    const EdgeInsets.symmetric(
+                                                        const EdgeInsets
+                                                                .symmetric(
                                                             horizontal: 15),
                                                     border: InputBorder.none,
                                                     focusedBorder:
@@ -230,7 +265,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                                     isCollapsed: true,
                                                     isDense: true,
                                                     contentPadding:
-                                                    const  EdgeInsets.symmetric(
+                                                        const EdgeInsets
+                                                                .symmetric(
                                                             horizontal: 15),
                                                     border: InputBorder.none,
                                                     focusedBorder:
@@ -255,7 +291,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                                   child: SvgPicture.asset(snew
                                                       ? 'assets/hide.svg'
                                                       : 'assets/show.svg')),
-                                              const  SizedBox(
+                                              const SizedBox(
                                                 width: 15,
                                               )
                                             ],
@@ -265,8 +301,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                                 cnewp.text.isNotEmpty &&
                                                 newp.text != cnewp.text)
                                             ? Container(
-                                                margin: const EdgeInsets.symmetric(
-                                                    vertical: 10),
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10),
                                                 child: Ruler.setText(
                                                     'Incorrect password',
                                                     size: Ruler.setSize,
