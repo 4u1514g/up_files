@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:path_provider/path_provider.dart';
@@ -163,6 +164,27 @@ class Ruler {
     );
   }
 
+  static toastSuccess(String content) {
+    Fluttertoast.showToast(
+        msg: content,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  static toastError(String content) {
+    Fluttertoast.showToast(
+        msg: content,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
   static cancelLoaderDialog(BuildContext context) {
     Navigator.of(context, rootNavigator: true).pop();
   }
@@ -204,7 +226,7 @@ class Ruler {
   static const String url = 'https://trangapp.okechua.com/api/';
 
   static Color primaryColor = const Color(0xffeb1a6c);
-  static Color orangeColor = const Color(0xFFFB6107);
+  static Color orangeColor = const Color(0xFFF79A21);
   static Color orange1Color = const Color(0xFFEBAA57);
   static Color redColor = const Color(0xFFFF0000);
   static Color pink = const Color(0xffeb1a6c);
@@ -215,7 +237,7 @@ class Ruler {
   static Color grey2Color = const Color(0xFFC4C4C4);
   static Color grey3Color = const Color(0xFFd9d9d9);
   static Color greyColor = const Color(0xFF999999);
-  static Color blueColor = const Color(0xFF0088FF);
+  static Color blueColor = const Color(0xFF28A8E0);
   static Color greenColor = const Color(0xFF00C22D);
   static Color overtimeColorSchedule = const Color(0x27FF0000);
   static Color nowtimeColorSchedule = const Color(0x26FF9800);

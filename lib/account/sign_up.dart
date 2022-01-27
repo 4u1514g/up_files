@@ -47,15 +47,16 @@ class _SignUpState extends State<SignUp> {
                       physics: const NeverScrollableScrollPhysics(),
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: Ruler.height(context, 55),
-                          ),
+
                           Opacity(
                               opacity: 0.1,
                               child: SvgPicture.asset(
                                 'assets/Cyber attack-pana.svg',
                                 width: Ruler.width(context, 95),
                               )),
+                          SizedBox(
+                            height: Ruler.height(context, 45),
+                          ),
                         ],
                       ),
                     )),
@@ -346,9 +347,11 @@ class _SignUpState extends State<SignUp> {
                                         .requestFocus(cmkNode);
                                   });
                                 } else {
+                                  Ruler.showLoaderDialog(context);
                                   await api
                                       .signUp(_tk.text, _mk.text, _name.text)
                                       .then((value) {
+                                    Ruler.cancelLoaderDialog(context);
                                     AwesomeDialog(
                                       context: context,
                                       animType: AnimType.SCALE,
@@ -357,12 +360,19 @@ class _SignUpState extends State<SignUp> {
                                       dismissOnBackKeyPress: false,
                                       dismissOnTouchOutside: false,
                                       title: 'Sign up successfully',
-                                      btnOkText: 'Sign in',
+                                      btnOkText: 'Sign  in',
                                       btnOkOnPress: () {
-                                        Navigator.pop(
-                                            context, [_tk.text, _mk.text]);
+                                        Navigator.pop(context, [_tk.text, _mk.text]);
                                       },
                                     ).show();
+                                  }).onError((error, stackTrace) {
+                                    Ruler.cancelLoaderDialog(context);
+                                    if(error is DioError){
+                                    setState(() {
+                                      errMes=error.response!.data!;
+                                    });
+
+                                    }
                                   });
                                 }
                               },
@@ -459,7 +469,6 @@ class _SignUpState extends State<SignUp> {
                           //   },
                           // ).show();
                           Ruler.showLoaderDialog(context);
-                          print(_tk.text+'  '+ _mk.text+'  '+ _name.text);
                           await api
                               .signUp(_tk.text, _mk.text, _name.text)
                               .then((value) {
@@ -471,8 +480,8 @@ class _SignUpState extends State<SignUp> {
                               dialogType: DialogType.SUCCES,
                               dismissOnBackKeyPress: false,
                               dismissOnTouchOutside: false,
-                              title: 'Đăng ký thành công',
-                              btnOkText: 'Đăng nhập',
+                              title: 'Sign up successfully',
+                              btnOkText: 'Sign  in',
                               btnOkOnPress: () {
                                 Navigator.pop(context, [_tk.text, _mk.text]);
                               },
@@ -480,7 +489,7 @@ class _SignUpState extends State<SignUp> {
                           }).onError((error, stackTrace) {
                             Ruler.cancelLoaderDialog(context);
                             if(error is DioError){
-                              print(error.response!.data!);
+                              errMes=error.response!.data!;
                             }
                           });
                         }

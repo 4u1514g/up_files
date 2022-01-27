@@ -179,26 +179,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           onFieldSubmitted: (mk) async {
-                            // if (mk.isNotEmpty && _tk.text.isNotEmpty) {
-                            //   Ruler.showLoaderDialog(context);
-                            //   await api.login(_tk.text, mk).then((value) async{
-                            //     Ruler.cancelLoaderDialog(context);
-                            //     await Ruler.writeAccount(value);
-                            //     await Ruler.readAccount();
-                            //     Navigator.pushAndRemoveUntil(
-                            //         context,
-                            //         CupertinoPageRoute(
-                            //             builder: (context) =>
-                            //                 const BotNavBar()),
-                            //         (route) => false);
-                            //   }).onError((error, stackTrace) {
-                            //     if (error is DioError) {
-                            //       setState(() {
-                            //         errMes = error.response!.data['error'];
-                            //       });
-                            //     }
-                            //   });
-                            // }
+                            if (mk.isNotEmpty && _tk.text.isNotEmpty) {
+                              Ruler.showLoaderDialog(context);
+                              await api.signIn(_tk.text, mk).then((value) async{
+                                Ruler.cancelLoaderDialog(context);
+                                await Ruler.writeAccount(value);
+                                await Ruler.readAccount();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const BotNavBar()),
+                                    (route) => false);
+                              }).onError((error, stackTrace) {
+                                Ruler.cancelLoaderDialog(context);
+                                if (error is DioError) {
+                                  setState(() {
+                                    errMes = 'wrong phone or password';
+                                  });
+                                }
+                              });
+                            }
                           },
                           obscureText: !hide,
                           textAlignVertical: TextAlignVertical.center,
@@ -261,23 +262,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   behavior: HitTestBehavior.opaque,
                   onTap: _mk.text.isNotEmpty && _tk.text.isNotEmpty
                       ? () async {
-                          // await api.login(_tk.text, _mk.text).then((value) async{
-                          //     Ruler.cancelLoaderDialog(context);
-                          //     await Ruler.writeAccount(value);
-                          //     await Ruler.readAccount();
-                          //     Navigator.pushAndRemoveUntil(
-                          //         context,
-                          //         CupertinoPageRoute(
-                          //             builder: (context) =>
-                          //                 const BotNavBar()),
-                          //         (route) => false);
-                          //   }).onError((error, stackTrace) {
-                          //     if (error is DioError) {
-                          //       setState(() {
-                          //         errMes = error.response!.data['error'];
-                          //       });
-                          //     }
-                          //   });
+                          await api.signIn(_tk.text, _mk.text).then((value) async{
+                              Ruler.cancelLoaderDialog(context);
+                              await Ruler.writeAccount(value);
+                              await Ruler.readAccount();
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const BotNavBar()),
+                                  (route) => false);
+                            }).onError((error, stackTrace) {
+                              if (error is DioError) {
+                                Ruler.cancelLoaderDialog(context);
+                                setState(() {
+                                  errMes = 'wrong phone or password';
+                                });
+                              }
+                            });
                     Navigator.push(context,CupertinoPageRoute(builder: (context) =>const BotNavBar()));
                         }
                       : null,

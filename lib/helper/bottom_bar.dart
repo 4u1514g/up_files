@@ -45,8 +45,8 @@ class _BotNavBarState extends State<BotNavBar> {
                 _cur=index;
               });
             },
-            selectedItemColor: Ruler.purpleColor,
-            unselectedItemColor: Ruler.greyColor,
+            selectedItemColor: Ruler.blueColor,
+            unselectedItemColor: Ruler.purple2Color,
             currentIndex: _cur,
             items: const [
               BottomNavigationBarItem(
