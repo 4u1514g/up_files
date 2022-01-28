@@ -66,7 +66,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                                               Ruler.width(
                                                                   context, 5)),
                                                   child: Container(
-                                                    height: 300,
+                                                    height: 280,
                                                     width: Ruler.width(
                                                         context, 90),
                                                     padding:
@@ -85,6 +85,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                                       ),
                                                       TextFormField(
                                                         controller: zxc,
+                                                        textCapitalization: TextCapitalization.words,
                                                         decoration: const InputDecoration(
                                                             contentPadding:
                                                                 EdgeInsets
@@ -140,19 +141,13 @@ class _AccountScreenState extends State<AccountScreen> {
                                                                       'Success');
                                                                   Navigator.pop(
                                                                       this.context,
-                                                                      'ok');
+                                                                      zxc.text);
                                                                 }).onError((error,
                                                                         stackTrace) {
                                                                   Ruler.toastError(
                                                                       'Failed');
                                                                   Ruler.cancelLoaderDialog(
                                                                       context);
-                                                                }).then((value) {
-                                                                  if (value ==
-                                                                      'ok') {
-                                                                    setState(
-                                                                        () {});
-                                                                  }
                                                                 });
                                                               },
                                                               child: Container(
@@ -216,7 +211,14 @@ class _AccountScreenState extends State<AccountScreen> {
                                                       ))
                                                     ]),
                                                   ),
-                                                ));
+                                                )).then((value) {
+                                          if (value != null) {
+                                            setState(() {
+                                              UserModel.savedAccount!.name =
+                                                  value;
+                                            });
+                                          }
+                                        });
                                       },
                                       child: Container(
                                           padding: const EdgeInsets.all(10),
@@ -241,11 +243,16 @@ class _AccountScreenState extends State<AccountScreen> {
                                 )),
                             Positioned(
                               top: 0,
-                              child: Center(
+                              child: Container(
+                                height: 120,
+                                width: 120,
+                                padding: const EdgeInsets.all(30),
+                                decoration: const BoxDecoration(
+                                    color: Color(0xff4B5F83),
+                                    shape: BoxShape.circle),
                                 child: SvgPicture.asset(
-                                  'assets/user_icon-icons.com_66546.svg',
-                                  height: 120,
-                                  width: 120,
+                                  'assets/user2.svg',
+                                  color: Colors.white,
                                 ),
                               ),
                             ),

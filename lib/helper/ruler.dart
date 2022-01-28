@@ -223,7 +223,7 @@ class Ruler {
   }
 
 
-  static const String url = 'https://trangapp.okechua.com/api/';
+  static const String url = 'http://trangapp.okechua.com/api/';
 
   static Color primaryColor = const Color(0xffeb1a6c);
   static Color orangeColor = const Color(0xFFF79A21);

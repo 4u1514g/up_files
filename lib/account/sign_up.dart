@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -351,6 +353,7 @@ class _SignUpState extends State<SignUp> {
                                   await api
                                       .signUp(_tk.text, _mk.text, _name.text)
                                       .then((value) {
+                                        print(jsonEncode(value));
                                     Ruler.cancelLoaderDialog(context);
                                     AwesomeDialog(
                                       context: context,
@@ -359,7 +362,7 @@ class _SignUpState extends State<SignUp> {
                                       dialogType: DialogType.SUCCES,
                                       dismissOnBackKeyPress: false,
                                       dismissOnTouchOutside: false,
-                                      title: 'Sign up successfully',
+                                      title: 'Success',
                                       btnOkText: 'Sign  in',
                                       btnOkOnPress: () {
                                         Navigator.pop(context, [_tk.text, _mk.text]);
@@ -385,7 +388,7 @@ class _SignUpState extends State<SignUp> {
                                 label: Ruler.setText('Confirm password',
                                     size: Ruler.setSize,
                                     color: Ruler.greyColor),
-                                suffixIcon: _mk.text.isEmpty || !mkNode.hasFocus
+                                suffixIcon: _cmk.text.isEmpty || !cmkNode.hasFocus
                                     ? const SizedBox()
                                     : GestureDetector(
                                         behavior: HitTestBehavior.opaque,
@@ -462,7 +465,7 @@ class _SignUpState extends State<SignUp> {
                           //   dialogType: DialogType.SUCCES,
                           //   dismissOnBackKeyPress: false,
                           //   dismissOnTouchOutside: false,
-                          //   title: 'Sign up successfully',
+                          //   title: 'Success',
                           //   btnOkText: 'Sign in',
                           //   btnOkOnPress: () {
                           //     Navigator.pop(context, [_tk.text, _mk.text]);
@@ -480,7 +483,7 @@ class _SignUpState extends State<SignUp> {
                               dialogType: DialogType.SUCCES,
                               dismissOnBackKeyPress: false,
                               dismissOnTouchOutside: false,
-                              title: 'Sign up successfully',
+                              title: 'Success',
                               btnOkText: 'Sign  in',
                               btnOkOnPress: () {
                                 Navigator.pop(context, [_tk.text, _mk.text]);

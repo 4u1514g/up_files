@@ -44,7 +44,7 @@ class _InitScreenState extends State<InitScreen> {
                   CupertinoPageRoute(builder: (context) => const BotNavBar()),
                   (route) => false);
             });
-            return  Container();
+            return Container();
           } else {
             return const LoginScreen();
           }
@@ -181,7 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           onFieldSubmitted: (mk) async {
                             if (mk.isNotEmpty && _tk.text.isNotEmpty) {
                               Ruler.showLoaderDialog(context);
-                              await api.signIn(_tk.text, mk).then((value) async{
+                              await api
+                                  .signIn(_tk.text, mk)
+                                  .then((value) async {
                                 Ruler.cancelLoaderDialog(context);
                                 await Ruler.writeAccount(value);
                                 await Ruler.readAccount();
@@ -262,25 +264,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   behavior: HitTestBehavior.opaque,
                   onTap: _mk.text.isNotEmpty && _tk.text.isNotEmpty
                       ? () async {
-                          await api.signIn(_tk.text, _mk.text).then((value) async{
+                          Ruler.showLoaderDialog(context);
+                          await api
+                              .signIn(_tk.text, _mk.text)
+                              .then((value) async {
+                            Ruler.cancelLoaderDialog(context);
+                            await Ruler.writeAccount(value);
+                            await Ruler.readAccount();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => const BotNavBar()),
+                                (route) => false);
+                          }).onError((error, stackTrace) {
+                            if (error is DioError) {
+                              print(error);
                               Ruler.cancelLoaderDialog(context);
-                              await Ruler.writeAccount(value);
-                              await Ruler.readAccount();
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) =>
-                                          const BotNavBar()),
-                                  (route) => false);
-                            }).onError((error, stackTrace) {
-                              if (error is DioError) {
-                                Ruler.cancelLoaderDialog(context);
-                                setState(() {
-                                  errMes = 'wrong phone or password';
-                                });
-                              }
-                            });
-                    Navigator.push(context,CupertinoPageRoute(builder: (context) =>const BotNavBar()));
+                              setState(() {
+                                errMes = 'wrong phone or password';
+                              });
+                            }
+                          });
                         }
                       : null,
                   child: Container(
@@ -292,28 +296,38 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                         child: Ruler.setText('SIGN IN',
-                            size: Ruler.setSize +2, color: Colors.white,weight: FontWeight.w500)),
+                            size: Ruler.setSize + 2,
+                            color: Colors.white,
+                            weight: FontWeight.w500)),
                   ),
                 ),
-                const SizedBox(height: 4,),
+                const SizedBox(
+                  height: 4,
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: Ruler.setText('--- or ---', size: Ruler.setSize - 1),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () async=>await Navigator.push(context,CupertinoPageRoute(builder: (context) =>const SignUp())).then((value) {
-                    if(value!=null){
+                  onTap: () async => await Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const SignUp())).then((value) {
+                    if (value != null) {
                       setState(() {
-                        _tk.text=value[0];
-                        _mk.text=value[1];
+                        _tk.text = value[0];
+                        _mk.text = value[1];
                       });
                     }
                   }),
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                    child: Ruler.setText('SIGN UP', size: Ruler.setSize + 2, weight: FontWeight.w500,color: Ruler.blueColor),
+                    child: Ruler.setText('SIGN UP',
+                        size: Ruler.setSize + 2,
+                        weight: FontWeight.w500,
+                        color: Ruler.blueColor),
                   ),
                 )
               ],

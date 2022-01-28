@@ -66,7 +66,8 @@ class _UpFilesScreenState extends State<UpFilesScreen> {
                       Expanded(
                         flex: 4,
                         child: _file.isEmpty
-                            ? SizedBox(
+                            ? Container(
+                                padding: const EdgeInsets.only(left: 25),
                                 width: Ruler.width(context, 80),
                                 height: Ruler.height(context, 60) - 80,
                                 child: SvgPicture.asset(
@@ -79,14 +80,36 @@ class _UpFilesScreenState extends State<UpFilesScreen> {
                                 itemCount: _file.length,
                                 itemBuilder: (context, index) {
                                   return Container(
-                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                         border: Border(
                                             bottom: BorderSide(
                                                 width: 0.5,
                                                 color: Ruler.greyColor))),
-                                    child: Ruler.setText(_file[index].name,
-                                        size: Ruler.setSize),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Ruler.setText(
+                                              _file[index].name,
+                                              size: Ruler.setSize),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        GestureDetector(
+                                          behavior: HitTestBehavior.opaque,
+                                          onTap: () {
+                                            setState(() {
+                                              _file.removeAt(index);
+                                            });
+                                          },
+                                          child: const SizedBox(
+                                            width: 25,
+                                            height: 25,
+                                            child: Icon(Icons.clear),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   );
                                 },
                               ),
@@ -141,7 +164,7 @@ class _UpFilesScreenState extends State<UpFilesScreen> {
                             request.files.add(await http.MultipartFile.fromPath(
                                 'upload[]', file.path!));
                           }
-                         await request.send().then((value) {
+                          await request.send().then((value) {
                             Ruler.cancelLoaderDialog(context);
                             if (value.statusCode == 200) {
                               setState(() {

@@ -10,7 +10,7 @@ part of 'api_utils.dart';
 
 class _APIUtils implements APIUtils {
   _APIUtils(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://trangapp.okechua.com/api/';
+    baseUrl ??= 'http://trangapp.okechua.com/api/';
   }
 
   final Dio _dio;
