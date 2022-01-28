@@ -34,6 +34,7 @@ class _UpFilesScreenState extends State<UpFilesScreen> {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: Ruler.appBar(),
         body: Column(
