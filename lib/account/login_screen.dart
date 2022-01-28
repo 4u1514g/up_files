@@ -44,7 +44,7 @@ class _InitScreenState extends State<InitScreen> {
                   CupertinoPageRoute(builder: (context) => const BotNavBar()),
                   (route) => false);
             });
-            return const Center(child: CupertinoActivityIndicator());
+            return  Container();
           } else {
             return const LoginScreen();
           }

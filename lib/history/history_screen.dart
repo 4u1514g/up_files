@@ -63,11 +63,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
       },
       child: RefreshIndicator(
         onRefresh: () async {
-          // setState(() {
-          //   list.clear();
-          //   page = 1;
-          //   getLoadMore();
-          // });
+          setState(() {
+            _future = api.getFiles(
+                UserModel.savedAccount!.phone!, UserModel.savedAccount!.password!);
+          });
         },
         child: Scaffold(
           backgroundColor: Colors.white,
